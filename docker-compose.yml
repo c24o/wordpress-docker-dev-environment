@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+    db:
+        image: mysql:5.7
+        volumes:
+            - db-data:/var/lib/mysql
+        ports:
+            - "3360:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_DATABASE: wordpres
+            MYSQL_USER: wordpress
+            MYSQL_PASSWORD: password
+
+    wordpress:
+        depends_on:
+            - db
+        build: ./wordpress-image
+        ports:
+            - 8080:80
+        restart: on-failure
+        volumes:
+            - ./wordpress:/var/www/html
+        environment:
+            WORDPRESS_DB_HOST: db:3306
+            WORDPRESS_DB_USER: wordpress
+            WORDPRESS_DB_PASSWORD: password
+            WORDPRESS_DB_NAME: wordpress
+            WP_TESTS_DB_NAME: wptests
+            WP_PLUGIN_FOLDER: my-plugin-folder
+
+volumes:
+    db-data:
