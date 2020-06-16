@@ -9,7 +9,7 @@ services:
             - "3360:3306"
         environment:
             MYSQL_ROOT_PASSWORD: password
-            MYSQL_DATABASE: wordpres
+            MYSQL_DATABASE: wordpress
             MYSQL_USER: wordpress
             MYSQL_PASSWORD: password
 
